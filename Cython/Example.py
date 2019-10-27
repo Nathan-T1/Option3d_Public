@@ -6,16 +6,6 @@ from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import colors
 from matplotlib import cm
 
-def plot(df):
-
-	X,Y = np.meshgrid(df.columns.astype(float), df.index)
-	Z = df.values
-
-	fig = plt.figure()
-	ax = fig.add_subplot(111, projection='3d')
-	surf = ax.plot_surface(X, Y, Z,cmap=cm.coolwarm,label = "Graph", antialiased=True)
-	
-	plt.show()
 
 '''
 Each row in array represents a seperate leg
@@ -35,10 +25,10 @@ Below would represent a Iron Condor
 '''
 
 array = np.array(
-[[-1, 0, 100, 100, 20, .20, .20, .0025, .25],
-[1, 0, 100, 101, 20, .20, .20, .0025, .25],
-[-1, 1, 100, 100, 20, .20, .20, .0025, .25],
-[1, 1, 100, 99, 20, .20, .20, .0025, .25]], 
+[[-1, 0, 100, 101, 40, .20, .10, .001, .1],
+[1, 0, 100, 102, 40, .20, .10, .001, .1],
+[-1, 1, 100, 99, 40, .20, .10, .001, .1],
+[1, 1, 100, 98, 40, .20, .10, .001, .1]], 
 np.float64
 	)
 
@@ -54,12 +44,45 @@ Must be a string like: Delta, Gamma, Theta, Vega, P/L, Exercise Probability
 '''
 
 start = time.time()
-df = main_array(array, "Theta")
+df = main_array(array, "P/L")
+
+X,Y = np.meshgrid(df.columns.astype(float), df.index)
+Z = df.values
+
+fig = plt.figure()
+ax = fig.add_subplot(1,3,1, projection='3d')
+surf = ax.plot_surface(X, Y, Z,cmap=cm.coolwarm,label = "Graph", antialiased=True)
+ax.set_zlabel("P/L")
+ax.set_ylabel('Spot')
+ax.set_xlabel('DTE')
+
+df_delta = main_array(array, "Delta")
+
+X,Y = np.meshgrid(df_delta.columns.astype(float), df_delta.index)
+Z = df_delta.values
+
+ax1 = fig.add_subplot(1,3,2, projection='3d')
+surf = ax1.plot_surface(X, Y, Z,cmap=cm.coolwarm,label = "Graph", antialiased=True)
+ax1.set_zlabel("Delta")
+ax1.set_ylabel('Spot')
+ax1.set_xlabel('DTE')
+plt.title("Iron Condor: 40 DTE, 100 Spot. 101/102 Call , 99/98 Put")
+
+df_gamma = main_array(array, "Theta")
+
+X,Y = np.meshgrid(df_gamma.columns.astype(float), df_gamma.index)
+Z = df_gamma.values
+
+ax2 = fig.add_subplot(1,3,3, projection='3d')
+surf = ax2.plot_surface(X, Y, Z,cmap=cm.coolwarm,label = "Graph", antialiased=True)
+ax2.set_zlabel("Theta")
+ax2.set_ylabel('Spot')
+ax2.set_xlabel('DTE')
+
+plt.subplots_adjust(left=0, bottom=0, right=1, top=1, wspace=0, hspace=0)
 end = time.time()
 
-print(df)
 print(end-start)
-
-plot(df)
+plt.show()
 
 
