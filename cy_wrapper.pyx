@@ -69,7 +69,7 @@ ctypedef np.float64_t DTYPE_t
 @cython.boundscheck(False)  # Deactivate bounds checking
 @cython.wraparound(False)   # Deactivate negative indexing.
 @cython.cdivision(True)
-def cy_wrapper_iv(np.ndarray[dtype = DTYPE_t, ndim=2] main, int cp):
+cpdef cy_wrapper_iv(np.ndarray[dtype = DTYPE_t, ndim=2] main, int cp):
 
   cdef double [:,:] main_view = main
   cdef int I = main_view.shape[0]
