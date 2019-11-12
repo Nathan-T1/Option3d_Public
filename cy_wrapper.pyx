@@ -19,7 +19,7 @@ cdef double std_norm_cdf(double x):
 @cython.boundscheck(False)  # Deactivate bounds checking
 @cython.wraparound(False)   # Deactivate negative indexing.
 @cython.cdivision(True)
-cpdef double cprice_func(float s_var, float k0, float t_var, float sig, double cp):
+cdef double cprice_func(float s_var, float k0, float t_var, float sig, double cp):
 
   cdef double d1_var, d2_var, n_d1, n_d2, val
   cdef double r = .02
@@ -35,7 +35,7 @@ cpdef double cprice_func(float s_var, float k0, float t_var, float sig, double c
 @cython.boundscheck(False)  # Deactivate bounds checking
 @cython.wraparound(False)   # Deactivate negative indexing.
 @cython.cdivision(True)
-cpdef double gamma_func(float s_var, float k0, float t_var, float sig, float r):
+cdef double gamma_func(float s_var, float k0, float t_var, float sig, float r):
     
   cdef double pi = 3.1415926535897
 
