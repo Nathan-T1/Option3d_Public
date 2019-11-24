@@ -15,10 +15,6 @@ from Option3d import *
 import sys
 from matplotlib import cm
 
-## create Mayavi Widget and show
-
-#Idea, set all slider to add +- some amount to self.variable
-#Label then could display their sum
 
 class ThreeDSurface_GraphWindow(FigureCanvas): #Class for 3D window
     def __init__(self):
@@ -149,7 +145,6 @@ class MainWindow(QWidget):
         np.float64
             )
 
-        global X, Y, Z
         
         self.df = main_array(self.array, target)
         self.x = self.df.columns.values
